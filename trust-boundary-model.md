@@ -10,7 +10,7 @@
 
 The B1-B4 framework is a pipeline-level threat model for AI coding agents operating across software development pipelines. Where AST10 documents individual skill risks, B1-B4 maps how those risks **chain across trust boundaries** from developer intent to production deployment.
 
-This model is designed to help AppSec teams identify where controls must be applied in sequence, not in isolation.
+This model is designed to help Application Security (AppSec) teams identify where controls must be applied in sequence and avoid isolated controls.
 
 ---
 
@@ -80,6 +80,7 @@ This model is designed to help AppSec teams identify where controls must be appl
 ---
 
 ## Pipeline View
+```
 Developer Intent
 │
 [B1] ── AST03, AST09
@@ -101,14 +102,14 @@ CI/CD Pipeline
 │      Privilege escalation, host-mode execution, no audit trail
 ▼
 Production
-
+```
 ---
 
 ## Using This Model
 
 **For AppSec teams**: Use B1-B4 as a review checklist when onboarding AI coding agents. Each boundary should have an explicit control owner and a validation gate before artifacts cross.
 
-**For threat modeling**: Map your agent architecture against the four boundaries. Identify which AST risks are present at each crossing. Prioritize controls starting at B2 — the highest-density risk boundary based on 2026 incident data.
+**For threat modeling**: Map your agent architecture against the four boundaries. Identify which AST risks are present at each crossing. Prioritize controls starting at B2 - the highest-density risk boundary based on 2026 incident data.
 
 **For compliance**: The B1-B4 model maps to NIST AI RMF GOVERN and MANAGE functions, and to ISO 42001 AI management system controls.
 
@@ -116,8 +117,24 @@ Production
 
 ## References
 
-- OWASP BASC 2026 presentation: *"Threat Modeling Development Workflows with Autonomous Code Generation"* — [Speaker: Alok Tibrewala]
-- Snyk ToxicSkills (Feb 2026)
-- Check Point Research CVE-2025-59536 (Feb 2026)
-- SecurityScorecard OpenClaw Exposure Report (Feb 2026)
-- OWASP Agentic AI Top 10 (Dec 2025)
+### Primary Presentation
+- OWASP BASC 2026: *"Threat Modeling Development Workflows with Autonomous Code Generation"* — Alok Tibrewala  
+  Slides: https://speakerdeck.com/aloktibrewala/threat-modeling-development-workflows-with-autonomous-code-generation
+
+### Research Sources
+- Veracode, "2025 GenAI Code Security Report" — 45% insecure implementation rate across 100+ LLMs; AI commits leak secrets at 2x baseline rate
+- Apiiro, "4x Velocity, 10x Vulnerabilities: AI Coding Assistants Are Shipping More Risks," August 2025 — 322% increase in privilege escalation paths; 153% increase in architectural design flaws (Fortune 50 dataset)
+- GitGuardian, "The State of Secrets Sprawl 2026" — 28.65M hardcoded secrets on public GitHub; AI credential leaks +81% YoY; 24,008 secrets in MCP config files
+- arXiv:2406.10279 — "We Have a Package for You! A Comprehensive Analysis of Package Hallucinations by Code Generating LLMs": ~20% of AI code suggestions reference nonexistent package names; 58% of hallucinated packages repeat across queries
+- arXiv:2504.19956 — AI code security analysis
+- Schneider, "Threat Modeling Agentic AI"
+
+### OWASP Standards
+- OWASP Agentic AI Top 10 (December 2025)
+- OWASP Agentic Skills Top 10 / AST10 (March 2026)
+
+### Incident Evidence
+- Snyk ToxicSkills (Feb 2026) — 36.82% of scanned skills contained security flaws
+- Check Point Research CVE-2025-59536 (Feb 2026) — CVSS 8.7 RCE in Claude Code via repository config files
+- SecurityScorecard (Feb 2026) — 135,000+ agent instances publicly internet-exposed
+- CVE-2026-28363 (CVSS 9.9) — WebSocket hijack of local agent instances
