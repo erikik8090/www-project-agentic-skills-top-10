@@ -33,3 +33,30 @@ The [`Build Top 10 PPTX`](../.github/workflows/build-pptx.yml) workflow runs on:
 
 Every run uploads the deck as the **`OWASP-Agentic-Skills-Top10-pptx`** artifact,
 downloadable from the workflow run's *Artifacts* section.
+
+## `build_pdf.py` — full Top 10 PDF document
+
+Assembles the entire Top 10 into a single professional PDF:
+
+1. **Cover page** — OWASP logo, title, version, licence.
+2. **Executive summary** — narrative plus the 10-risk reference table.
+3. **Acknowledgements** — project lead and co-leaders.
+4. **Table of contents** — with page numbers.
+5. **AST01–AST10** — each chapter rendered in full from its `astNN.md` file.
+
+Rendering: Markdown → HTML (`python-markdown`) → PDF (`WeasyPrint`).
+
+### Build locally
+
+```bash
+# system libraries (Debian/Ubuntu): libpango, cairo, gdk-pixbuf, dejavu fonts
+pip install "weasyprint==69.0" "markdown>=3.6,<4"
+python tools/build_pdf.py --out dist/OWASP-Agentic-Skills-Top10.pdf
+```
+
+### Build in CI
+
+The [`Build Top 10 PDF`](../.github/workflows/build-pdf.yml) workflow runs on the
+same triggers as the deck workflow (push to `main`, manual dispatch, release) and
+uploads the **`OWASP-Agentic-Skills-Top10-pdf`** artifact; releases also get the
+PDF attached as an asset.
