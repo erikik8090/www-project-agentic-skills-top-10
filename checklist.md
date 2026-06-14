@@ -31,6 +31,7 @@ A practical checklist for evaluating AI agent skills against the [OWASP Agentic 
 | 2.4 | Has a Software Bill of Materials (SBOM) been generated for the skill and its dependencies? | SBOM available in a standard format (CycloneDX, SPDX) |
 | 2.5 | Are repository configuration files (hooks, `.claude/settings.json`, env overrides) treated as executable code with trust gates? | Config files reviewed and approved; not auto-executed on clone/open |
 | 2.6 | Has the recursive dependency tree been scanned (not just top-level skill files)? | Deep scan report covering transitive dependencies |
+| 2.7 | Before installation or configuration mutation, does the installer emit a reviewable pre-mutation receipt? | Privacy-safe plan showing skills/agents selected, config files, hooks, MCP servers, env/network access, backups, external commands, approver, and `writes_started=false` before any write occurs |
 
 **Motivated by**: Claude Code CVE-2025-59536 (CVSS 8.7) — repo config files trigger RCE at project open before user dialog. ClawHub had no automated scanning at time of ClawHavoc.
 
@@ -193,6 +194,7 @@ The following open-source tools can be used to automate checklist verification:
 See [trust-boundary-model.md](./trust-boundary-model.md) for full framework.
 
 - [ ] **B1**: Are agent permissions explicitly declared and minimal before session start?
+- [ ] **B1**: Do skill/plugin installers produce a pre-mutation receipt before writing agent settings, hooks, MCP config, commands, or instruction files?
 - [ ] **B1**: Is developer context (MEMORY.md, issue content) sanitized before agent ingestion?
 - [ ] **B2**: Are all AI-generated dependency names validated against live registries?
 - [ ] **B2**: Is AI-generated code passing SAST before repository commit?
