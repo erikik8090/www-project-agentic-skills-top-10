@@ -19,14 +19,14 @@ description: "Comprehensive guide to the top 10 security risks in AI agent skill
 
 **Breadcrumb:** [OWASP](https://owasp.org/) > [Projects](https://owasp.org/projects/) > Agentic Skills Top 10
 
-**📥 Download (v0.5):** [Full report (PDF)](docs/OWASP-Agentic-Skills-Top10-v0.5.pdf) · [Slide deck (PPTX)](docs/OWASP-Agentic-Skills-Top10-v0.5.pptx) — generated from this repository; see [tools/](tools/).
+**📥 Download (v0.5):** [Full report (PDF)]({{ '/docs/OWASP-Agentic-Skills-Top10-v0.5.pdf' | relative_url }}) · [Slide deck (PPTX)]({{ '/docs/OWASP-Agentic-Skills-Top10-v0.5.pptx' | relative_url }}) — generated from this repository's [tools/](https://github.com/OWASP/www-project-agentic-skills-top-10/tree/main/tools).
 
 ---
 
 ## Table of Contents
 
 - [Overview](#overview)
-- [📊 Visual Top 10 Overview](top10.md)
+- [📊 Visual Top 10 Overview]({{ '/top10' | relative_url }})
 - [The Problem: A Crisis Already in Progress](#the-problem-a-crisis-already-in-progress)
 - [What Are Agentic Skills?](#what-are-agentic-skills)
 - [Incident Timeline (2026)](#incident-timeline-2026)
@@ -201,7 +201,7 @@ The following is a condensed timeline of confirmed real-world incidents involvin
 
 Each of the 10 risks is documented in a separate file. Click on the risk name to view the full details.
 
-> 📊 **Prefer a visual map?** See the **[Top 10 Visual Overview](top10.md)** — a skill-lifecycle diagram plus a colour-coded card for every risk.
+> 📊 **Prefer a visual map?** See the **[Top 10 Visual Overview]({{ '/top10' | relative_url }})** — a skill-lifecycle diagram plus a colour-coded card for every risk.
 
 | # | Risk | Severity | Platforms Affected | Key Mitigation | Real-World Evidence |
 |---|------|----------|--------------------|----------------|---------------------|
@@ -369,7 +369,7 @@ changelog:
 
 ### For Security Teams
 
-1. Review this document and the [complete Top 10 detail pages](top10.md) for full risk descriptions, attack scenarios, and OWASP mappings.
+1. Review this document and the [complete Top 10 detail pages]({{ '/top10' | relative_url }}) for full risk descriptions, attack scenarios, and OWASP mappings.
 2. Conduct a skill inventory across all agent platforms in use — treat this as an immediate priority given active exploitation confirmed in 2026.
 3. Use the [Security Assessment Checklist](checklist.md) for reviewing installed skills.
 4. Implement the governance framework described in AST09: inventory, approval workflow, audit logging, and agentic identity controls.
@@ -504,7 +504,7 @@ changelog:
 
 - **GitHub**: [github.com/OWASP/www-project-agentic-skills-top-10](https://github.com/OWASP/www-project-agentic-skills-top-10)
 - **OWASP Project Page**: [owasp.org/projects/agentic-skills-top-10](https://owasp.org/projects/agentic-skills-top-10)
-- **Full Risk Documentation**: [top10.md](top10.md)
+- **Full Risk Documentation**: [Visual Top 10 Overview]({{ '/top10' | relative_url }})
 - **Project Proposal**: [proposal.md](proposal.md)
 - **Security Assessment Checklist**: [checklist.md](checklist.md)
 - **Universal Skill Format Specification**: [universal-skill-format.md](universal-skill-format.md)
