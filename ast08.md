@@ -76,8 +76,7 @@ Skill behaves safely in test environments; activates malicious path only when sp
 
 - **AST01 (Malicious Skills)**: Poor scanning allows malicious skills to pass undetected.
 - **AST02 (Supply Chain Compromise)**: Compromised skills may evade scanners.
-- **AST04 (Insecure Metadata)**: Metadata attacks can bypass static analysis.
-- **AST05 (Unsafe Deserialization)**: Deserialization vulnerabilities may not be caught by scanners.
+- **AST04 (Insecure Metadata)**: Metadata and deserialization attacks can bypass static-analysis and pattern-matching scanners.
 - **AST07 (Update Drift)**: Updated skills may not be re-scanned.
 
 ## References

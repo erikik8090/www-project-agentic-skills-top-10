@@ -81,7 +81,6 @@ A one-screen map of all ten risks. The diagram shows **where** each risk attacks
     <rect x="24" y="142" width="171" height="24" rx="6" fill="#c0252b"/><text x="34" y="158">AST02 · Supply Chain</text>
     <rect x="219" y="110" width="171" height="24" rx="6" fill="#c0252b"/><text x="229" y="126">AST01 · Malicious Skills</text>
     <rect x="219" y="142" width="171" height="24" rx="6" fill="#b88a00"/><text x="229" y="158">AST07 · Update Drift</text>
-    <rect x="414" y="110" width="171" height="24" rx="6" fill="#d9701b"/><text x="424" y="126">AST05 · Deserialization</text>
     <rect x="414" y="142" width="171" height="24" rx="6" fill="#d9701b"/><text x="424" y="158">AST03 · Over-Privileged</text>
     <rect x="609" y="110" width="171" height="24" rx="6" fill="#d9701b"/><text x="619" y="126">AST06 · Weak Isolation</text>
     <rect x="804" y="110" width="171" height="24" rx="6" fill="#b88a00"/><text x="814" y="126">AST08 · Poor Scanning</text>
@@ -144,16 +143,6 @@ A one-screen map of all ten risks. The diagram shows **where** each risk attacks
   <div class="ast-title">Insecure Metadata</div>
   <div class="ast-desc">Unvalidated, unsigned metadata enables brand impersonation, understated permissions, and poisoned search.</div>
   <div class="ast-more">Read AST04 →</div>
-</a>
-
-<a class="ast-card high" href="ast05.md">
-  <div class="ast-top">
-    <span class="ast-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4c-2 0-2 2-2 4s-1 4-2 4c1 0 2 2 2 4s0 4 2 4"/><path d="M16 4c2 0 2 2 2 4s1 4 2 4c-1 0-2 2-2 4s0 4-2 4"/></svg></span>
-    <span class="ast-id">AST05</span><span class="ast-pill high">High</span>
-  </div>
-  <div class="ast-title">Unsafe Deserialization</div>
-  <div class="ast-desc">YAML/JSON/Markdown parsers execute embedded payloads at skill-load time — before any user action.</div>
-  <div class="ast-more">Read AST05 →</div>
 </a>
 
 <a class="ast-card high" href="ast06.md">
@@ -221,7 +210,6 @@ Each risk has a dedicated page with attack scenarios, preventive mitigations, OW
 | [AST02](ast02.md) | Supply Chain Compromise | Critical |
 | [AST03](ast03.md) | Over-Privileged Skills | High |
 | [AST04](ast04.md) | Insecure Metadata | High |
-| [AST05](ast05.md) | Unsafe Deserialization | High |
 | [AST06](ast06.md) | Weak Isolation | High |
 | [AST07](ast07.md) | Update Drift | Medium |
 | [AST08](ast08.md) | Poor Scanning | Medium |

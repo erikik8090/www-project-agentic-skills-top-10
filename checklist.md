@@ -64,25 +64,17 @@ A practical checklist for evaluating AI agent skills against the [OWASP Agentic 
 | 4.4 | Has metadata been validated against a security schema? | Schema validation passed; no unexpected or undeclared fields |
 | 4.5 | Is the declared `risk_tier` consistent with the actual permission scope? | Cross-reference: a skill declaring `L0` (safe) with `shell: true` is a red flag |
 | 4.6 | Has brand/trademark impersonation been checked? | Skill name does not impersonate a known brand without affiliation |
+| 4.7 | Are all YAML files parsed with safe loaders (`yaml.safe_load`, not `yaml.load`)? | No unsafe YAML tags (`!!python/object`, `!!python/apply`) in skill files |
+| 4.8 | Are skill config files parsed and validated in an isolated subprocess or container before execution? | Deserialization happens in sandboxed context with no access to host resources |
+| 4.9 | Is an allowlist of permitted YAML/JSON keys enforced? | Unexpected or undeclared fields are rejected |
+| 4.10 | Are `requirements.txt`, `package.json`, and `pyproject.toml` within skill packages treated as untrusted code? | Dependency installation sandboxed; not executed with agent privileges |
+| 4.11 | Has schema validation (JSON Schema, Pydantic, or equivalent) been applied before any deserialization of skill-provided data? | Validation step confirmed in skill loader pipeline |
+| 4.12 | Is deserialization performed with minimum privileges (not elevated agent context)? | Privilege drop confirmed before parsing |
 
-**Motivated by**: Malicious "Google," "Solana Wallet Tracker," and "Polymarket Trader" skills on ClawHub — none affiliated with named brands. ASCII smuggling confirmed in Snyk's toxicskills-goof samples.
-
----
-
-## AST05 — Unsafe Deserialization `High`
-
-| # | Check | Evidence to look for |
-|---|-------|---------------------|
-| 5.1 | Are all YAML files parsed with safe loaders (`yaml.safe_load`, not `yaml.load`)? | No unsafe YAML tags (`!!python/object`, `!!python/apply`) in skill files |
-| 5.2 | Are skill config files parsed and validated in an isolated subprocess or container before execution? | Deserialization happens in sandboxed context with no access to host resources |
-| 5.3 | Is an allowlist of permitted YAML/JSON keys enforced? | Unexpected or undeclared fields are rejected |
-| 5.4 | Are `requirements.txt`, `package.json`, and `pyproject.toml` within skill packages treated as untrusted code? | Dependency installation sandboxed; not executed with agent privileges |
-| 5.5 | Has schema validation (JSON Schema, Pydantic, or equivalent) been applied before any deserialization of skill-provided data? | Validation step confirmed in skill loader pipeline |
-| 5.6 | Is deserialization performed with minimum privileges (not elevated agent context)? | Privilege drop confirmed before parsing |
-
-**Motivated by**: PyYAML `!!python/object` allows arbitrary code execution on load. ClawHavoc staged downloads: safe SKILL.md triggered secondary payload during dependency install phase.
+**Motivated by**: Malicious "Google," "Solana Wallet Tracker," and "Polymarket Trader" skills on ClawHub — none affiliated with named brands. ASCII smuggling confirmed in Snyk's toxicskills-goof samples. PyYAML `!!python/object` allows arbitrary code execution on load; ClawHavoc staged downloads triggered a secondary payload during the dependency-install phase.
 
 ---
+
 
 ## AST06 — Weak Isolation `High`
 
@@ -167,7 +159,7 @@ A practical checklist for evaluating AI agent skills against the [OWASP Agentic 
 | Severity | Risks | Minimum review depth |
 |----------|-------|---------------------|
 | **Critical** | AST01, AST02 | Full checklist + dynamic testing + manual review |
-| **High** | AST03, AST04, AST05, AST06 | Full checklist + automated scanning |
+| **High** | AST03, AST04, AST06 | Full checklist + automated scanning |
 | **Medium** | AST07, AST08, AST09, AST10 | Checklist review + inventory verification |
 
 ---
@@ -178,8 +170,8 @@ The following open-source tools can be used to automate checklist verification:
 
 | Tool | Purpose | Relevant AST Risks |
 |------|---------|-------------------|
-| [Semgrep](https://github.com/semgrep/semgrep) | Code pattern analysis, custom rules | AST01, AST04, AST05 |
-| [Bandit](https://github.com/PyCQA/bandit) | Python-specific security analysis | AST01, AST05 |
+| [Semgrep](https://github.com/semgrep/semgrep) | Code pattern analysis, custom rules | AST01, AST04 |
+| [Bandit](https://github.com/PyCQA/bandit) | Python-specific security analysis | AST01, AST04 |
 | [Gitleaks](https://github.com/gitleaks/gitleaks) | Credential and secret detection | AST03, AST08 |
 | [TruffleHog](https://github.com/trufflesecurity/trufflehog) | Secret scanning across repos and history | AST03, AST08 |
 | [Caterpillar](https://github.com/alice-dot-io/caterpillar) | Dynamic SAST for AI agents — continuous behavioral analysis | AST01, AST03, AST08 |
