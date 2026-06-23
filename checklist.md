@@ -76,6 +76,21 @@ A practical checklist for evaluating AI agent skills against the [OWASP Agentic 
 ---
 
 
+## AST05 — Untrusted External Instructions `High`
+
+| # | Check | Evidence to look for |
+|---|-------|---------------------|
+| 5.1 | Does the skill reference external documentation, URLs, or remote files at runtime? | Inventory of every external reference in `SKILL.md` and bundled files |
+| 5.2 | Is each externally referenced document pinned to a content hash and re-verified on load? | Pin recorded at review time; load refuses unpinned or drifted content |
+| 5.3 | Could referenced documentation be inlined into the signed skill package instead of fetched? | Prefer inlined, reviewable copies; runtime fetch eliminated where possible |
+| 5.4 | Are runtime fetches restricted to a vetted allowlist of trusted, stable domains? | Egress allowlist enforced; no fetches from arbitrary or lapsed hosts |
+| 5.5 | Have references been followed transitively, including the chains they point to? | Full reference graph reviewed as part of the skill's attack surface |
+| 5.6 | Is there fleet-wide visibility of which skills fetch from which external sources? | Inventory enables tracing a compromised source to every affected skill |
+
+**Motivated by**: Anthropic's Agent Skills documentation warns that skills fetching external URLs risk content that "may contain malicious instructions" and can be "compromised if their external dependencies change over time." Air's research "The Story of Skills" distributed a skill with untrusted external instructions to 26,000 agents, showing a full proof of concept of potential agent takeover.
+
+---
+
 ## AST06 — Weak Isolation `High`
 
 | # | Check | Evidence to look for |
@@ -159,7 +174,7 @@ A practical checklist for evaluating AI agent skills against the [OWASP Agentic 
 | Severity | Risks | Minimum review depth |
 |----------|-------|---------------------|
 | **Critical** | AST01, AST02 | Full checklist + dynamic testing + manual review |
-| **High** | AST03, AST04, AST06 | Full checklist + automated scanning |
+| **High** | AST03, AST04, AST05, AST06 | Full checklist + automated scanning |
 | **Medium** | AST07, AST08, AST09, AST10 | Checklist review + inventory verification |
 
 ---

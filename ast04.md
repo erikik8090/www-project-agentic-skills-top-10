@@ -98,6 +98,7 @@ Alternative config formats with insufficient parsing sandboxing allow property i
 - **AST01 (Malicious Skills)**: insecure metadata enables social engineering, and unsafe parsing executes malicious payloads.
 - **AST02 (Supply Chain Compromise)**: metadata spoofing and serialized exploits hide supply-chain attacks.
 - **AST03 (Over-Privileged Skills)**: misleading permission declarations grant excessive access.
+- **AST05 (Untrusted External Instructions)**: AST04 executes payloads from the skill's own files; AST05 covers instructions loaded from externally referenced documents.
 - **AST06 (Weak Isolation)**: host-mode execution amplifies the impact of deserialization code execution.
 - **AST08 (Poor Scanning)**: metadata and deserialization attacks both evade pattern-matching scanners.
 

@@ -106,6 +106,7 @@ Most production agent deployments satisfy all three conditions.
 | [AST02](ast02.md) | Supply Chain Compromise | Critical | Transparency logs, dependency pinning |
 | [AST03](ast03.md) | Over-Privileged Skills | High | Least-privilege manifests, runtime enforcement |
 | [AST04](ast04.md) | Insecure Metadata | High | Schema validation, safe parsers, sandboxed loading |
+| [AST05](ast05.md) | Untrusted External Instructions | High | Source inventory, content pinning and inlining, continuous rescanning |
 | [AST06](ast06.md) | Weak Isolation | High | Containerization, process isolation |
 | [AST07](ast07.md) | Update Drift | Medium | Immutable pinning, hash verification |
 | [AST08](ast08.md) | Poor Scanning | Medium | Multi-tool pipeline, semantic analysis |
@@ -383,6 +384,7 @@ The following is a condensed timeline of confirmed real-world incidents involvin
 | **AST02** | Supply Chain Compromise | Critical | All | Registry transparency, provenance tracking | ClawHub collapse, Claude Code CVE-2025-59536 |
 | **AST03** | Over-Privileged Skills | High | All | Least-privilege manifests, schema validation | 280+ credential-leaking skills (Snyk, Feb 2026) |
 | **AST04** | Insecure Metadata | High | All | Static analysis, safe parsers, sandboxed loading | Fake "Google" skill impersonation; YAML payload delivery in SKILL.md |
+| **AST05** | Untrusted External Instructions | High | All | Source inventory, content pinning and inlining, continuous rescanning | Anthropic docs warn fetched URLs "may contain malicious instructions"; Air's "Story of Skills" PoC bypassed all scanners and proved a possible takeover of 26,000 agents via untrusted external instructions |
 | **AST06** | Weak Isolation | High | All | Containerization, Docker sandboxing | OpenClaw host-mode execution, 135K exposed instances |
 | **AST07** | Update Drift | Medium | All | Immutable pinning, hash verification | ClawJacked (CVE-2026-28363), patch-lag exploitation |
 | **AST08** | Poor Scanning | Medium | All | Semantic + behavioral multi-tool pipeline | Pattern-matcher bypass via natural-language injection |
@@ -401,6 +403,7 @@ Each of the 10 risks is documented in a separate file. Click on the risk name to
 | [AST02](ast02.md) | Supply Chain Compromise | Critical | All | Registry transparency, provenance tracking | ClawHub collapse, Claude Code CVE-2025-59536 |
 | [AST03](ast03.md) | Over-Privileged Skills | High | All | Least-privilege manifests, schema validation | 280+ credential-leaking skills (Snyk, Feb 2026) |
 | [AST04](ast04.md) | Insecure Metadata | High | All | Static analysis, safe parsers, sandboxed loading | Fake "Google" skill impersonation; YAML payload delivery in SKILL.md |
+| [AST05](ast05.md) | Untrusted External Instructions | High | All | Source inventory, content pinning and inlining, continuous rescanning | Anthropic docs warn fetched URLs "may contain malicious instructions"; Air's "Story of Skills" PoC bypassed all scanners and proved a possible takeover of 26,000 agents via untrusted external instructions |
 | [AST06](ast06.md) | Weak Isolation | High | All | Containerization, Docker sandboxing | OpenClaw host-mode execution, 135K exposed instances |
 | [AST07](ast07.md) | Update Drift | Medium | All | Immutable pinning, hash verification | ClawJacked (CVE-2026-28363), patch-lag exploitation |
 | [AST08](ast08.md) | Poor Scanning | Medium | All | Semantic + behavioral multi-tool pipeline | Pattern-matcher bypass via natural-language injection |
@@ -524,6 +527,8 @@ AST10 fills the gap between protocol-layer and model-layer security — a gap th
 4. **Pin dependencies**: Lock all nested dependencies to immutable hashes — never version ranges (AST07).
 5. **Honest metadata**: Accurately declare `risk_tier`, permissions, and `requires`; do not understate scope (AST04).
 6. **Protect identity files**: Never request write access to `SOUL.md`, `MEMORY.md`, or `AGENTS.md` unless your skill's core function requires it — and document why (AST03).
+7. **Pin or inline external instruction sources**: A live link is mutable and can be rug-pulled, so don't trust it as-is. Either hash-pin the referenced content and re-verify it on every load, or inline it into the skill so it ships immutable and reviewable (AST05).
+8. **Use high-reputation external sources**: When you can neither pin nor inline, fetch only from high-trust, stable sources to reduce the risk of malicious content (AST05).
 
 ### For Platform Developers
 
@@ -540,11 +545,11 @@ AST10 fills the gap between protocol-layer and model-layer security — a gap th
 
 | Role | Primary Concerns | Key AST Risks |
 |------|-----------------|---------------|
-| **AI Platform Developers** | Secure skill runtimes, registries, installers, and CI/CD integration | AST01, AST02, AST04, AST06, AST08 |
-| **AppSec / Product Security** | Govern skills in enterprise deployments; review skill PRs | AST03, AST04, AST07, AST09 |
-| **Skill Authors** | Write safe manifests, scripts, and metadata; ship signable packages | AST03, AST04, AST07 |
-| **GRC / Compliance** | Map skill risks to NIST AI RMF, ISO 42001, EU AI Act | AST09, AST10 |
-| **CISOs / Security Leadership** | Understand blast radius, incident scope, and governance gaps | AST02, AST06, AST09 |
+| **AI Platform Developers** | Secure skill runtimes, registries, installers, and CI/CD integration | AST01, AST02, AST04, AST05, AST06, AST08 |
+| **AppSec / Product Security** | Govern skills in enterprise deployments; review skill PRs | AST03, AST04, AST05, AST07, AST09 |
+| **Skill Authors** | Write safe manifests, scripts, and metadata; ship signable packages | AST03, AST04, AST05, AST07 |
+| **GRC / Compliance** | Map skill risks to NIST AI RMF, ISO 42001, EU AI Act | AST05, AST09, AST10 |
+| **CISOs / Security Leadership** | Understand blast radius, incident scope, and governance gaps | AST02, AST05, AST06, AST09 |
 | **Developers / Engineers** | Safely install and use skills without introducing unreviewed risk | AST01, AST02, AST07 |
 
 ---
