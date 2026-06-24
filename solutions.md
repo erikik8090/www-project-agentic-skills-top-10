@@ -88,7 +88,7 @@ Integrates via hooks with CrewAI, OpenAI Agents SDK, Google ADK, and MCP. Typica
 
 **AST01 — Malicious Skills:** Partial. Capability-delta detection flags a previously-approved skill that gains dangerous behavior (new shell / network / exfiltration surface) in an update, but SkilLock performs no first-party malware or intent classification (no signatures or heuristics) and cannot judge a never-seen skill as malicious on first sight.  
 **AST02 — Supply Chain Compromise:** Partial. Per-file content digests of bundled scripts detect tampered or newly-added scripts on update; SkilLock does not verify registry provenance or upstream signatures of the skill source itself.  
-**AST05 — Unsafe Deserialization:** Not addressed. Frontmatter is parsed with a safe YAML library, but SkilLock does not analyze or sandbox deserialization performed by the skills themselves.  
+**AST05 — Untrusted External Instructions:** Partial. The `SKL-NETWORK` detector inventories the external hosts and URLs a skill references — useful for spotting and tracking external sources — but SkilLock does not pin, hash-verify, or sandbox the content fetched from them. (The deserialization concern, now folded into AST04, is likewise out of scope: frontmatter is parsed with a safe YAML library, but SkilLock does not analyze or sandbox deserialization the skills themselves perform.)  
 **AST06 — Weak Isolation:** Not addressed. SkilLock is a post-install, CI-time review tool and provides no runtime sandboxing or process isolation (a runtime guard is explicitly out of scope for v1).
 
 ### Known Limitations
