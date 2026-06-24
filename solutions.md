@@ -72,7 +72,7 @@ Integrates via hooks with CrewAI, OpenAI Agents SDK, Google ADK, and MCP. Typica
 
 ### AST Risks Addressed
 
-**AST03 — Over-Privileged Skills:** Records the observed capability surface (shell commands, network URLs, file reads/writes, tool grants) parsed from `SKILL.md` and bundled scripts, independent of what the frontmatter declares. In a scan of 17,065 public skills, 38.8% executed shell but only 4.0% declared it; the `SKL-SHELL` / `SKL-NETWORK` / `SKL-TOOLS` detectors surface that declared-versus-observed gap so reviewers can right-size permissions.
+**AST03 — Over-Privileged Skills:** Records the observed capability surface (shell commands, network URLs, file reads/writes, tool grants) parsed from `SKILL.md` and bundled scripts, independent of what the frontmatter declares. Per SkilLock's own [scan of 17,065 public skills](https://github.com/skills-lock/skil-lock/blob/main/docs/ecosystem-scan-2026-06.md), 38.8% executed shell but only 4.0% declared it; the `SKL-SHELL` / `SKL-NETWORK` / `SKL-TOOLS` detectors surface that declared-versus-observed gap so reviewers can right-size permissions.
 
 **AST04 — Insecure Metadata:** The core check is manifest-versus-behavior mismatch — capabilities a skill actually exercises but does not declare in its `allowed-tools` / frontmatter are flagged in the PR, making under-declared or misleading metadata visible at review time rather than at runtime.
 
