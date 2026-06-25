@@ -98,7 +98,7 @@ Integrates via hooks with CrewAI, OpenAI Agents SDK, Google ADK, and MCP. Typica
 
 ### Framework Integration
 
-Wraps any tool-call boundary: pre-execution admission emit + post-execution outcome emit. Integration examples shipped for LangChain, LangGraph, CrewAI, AutoGen, and direct MCP tool wrappers. Typical integration is one decorator or middleware function per agent. Benchmark: ~13,700 receipts/second on a 2024 M-series laptop, single-process (reproducible via `benchmark/run.py` in the repo).
+Wraps any tool-call boundary: pre-execution admission emit + post-execution outcome emit. Integration examples shipped for LangChain, LangGraph, CrewAI, AutoGen, and direct MCP tool wrappers. Typical integration is one decorator or middleware function per agent. Benchmark: ~13,700 receipts/second on a 2024 M-series laptop, single-process (reproducible via `benchmarks/bench.ts` in the repo).
 
 ---
 
