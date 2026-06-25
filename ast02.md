@@ -83,6 +83,20 @@ def verify_transparency_log(skill_name: str, expected_hash: str) -> bool:
     return any(entry['hash'] == expected_hash for entry in log_entries)
 ```
 
+### Code Example: SKILL.md Integrity Check
+
+```python
+import hashlib
+
+def verify_skill_file(file_path: str, expected_hash: str) -> bool:
+    """Verify integrity of SKILL.md"""
+    with open(file_path, "rb") as f:
+        content = f.read()
+
+    actual_hash = hashlib.sha256(content).hexdigest()
+    return actual_hash == expected_hash
+```
+
 ## OWASP Mapping
 
 - **LLM03** (Supply Chain)
@@ -108,6 +122,7 @@ def verify_transparency_log(skill_name: str, expected_hash: str) -> bool:
 ## Related Risks
 
 - [AST01 — Malicious Skills](ast01.md): Supply chain compromise enables delivery of malicious skills.
+- [AST05 — Untrusted External Instructions](ast05.md): Externally referenced documentation is a supply-chain surface that code-integrity controls cannot pin or verify.
 - [AST07 — Update Drift](ast07.md): Lack of immutable updates exacerbates supply chain risks.
 - [AST08 — Poor Scanning](ast08.md): Inadequate scanning misses supply chain vulnerabilities.
 - [AST10 — Cross-Platform Reuse](ast10.md): Inconsistent security across platforms creates supply chain gaps.
